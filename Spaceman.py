@@ -57,6 +57,12 @@ def is_guess_in_word(guess, secret_word):
 
     pass
 
+def get_blank_word(secret_word):
+    guess = ""
+    for char in secret_word:
+        guess+=" _ "
+    return guess
+
 def spaceman(secret_word):
     '''
     A function that controls the game of spaceman. Will start spaceman in the command line.
@@ -67,6 +73,7 @@ def spaceman(secret_word):
     #get_blank_word(secret_word)
 
     #TODO: show the player information about the game according to the project spec
+    print("Your gessing is {}".format(get_blank_word(secret_word)))
 
     #TODO: Ask the player to guess one letter per round and check that it is only one letter
 

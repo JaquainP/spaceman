@@ -1,5 +1,7 @@
 import random
 
+WORDS_FILE = "random_words.txt"
+
 def load_word():
     '''
     A function that reads a text file of words and randomly selects one to use as the secret word
@@ -7,7 +9,7 @@ def load_word():
     Returns:
            string: The secret word to be used in the spaceman guessing game
     '''
-    f = open("words.txt", 'r')
+    f = open(WORDS_FILE, 'r')
     words_list = f.readlines()
     f.close()
 
@@ -65,7 +67,7 @@ def spaceman(secret_word):
     #get_blank_word(secret_word)
 
     #TODO: show the player information about the game according to the project spec
-    
+
     #TODO: Ask the player to guess one letter per round and check that it is only one letter
 
     #TODO: Check if the guessed letter is in the secret or not and give the player feedback

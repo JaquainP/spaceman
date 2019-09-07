@@ -28,6 +28,7 @@ def is_word_guessed(secret_word, letters_guessed):
     '''
     # TODO: Loop through the letters in the secret_word and check if a letter is not in lettersGuessed
     pass
+    return secret_word == letters_guessed
 
 def get_guessed_word(secret_word, letters_guessed):
     '''
@@ -40,7 +41,13 @@ def get_guessed_word(secret_word, letters_guessed):
     '''
 
     #TODO: Loop through the letters in secret word and build a string that shows the letters that have been guessed correctly so far that are saved in letters_guessed and underscores for the letters that have not been guessed yet
-
+    guess = ""
+    for char in secret_word:
+        if char == letters_guessed:
+            guess += letters_guessed
+        else:
+            guess += " _ "
+    return guess
     pass
 
 
@@ -56,6 +63,10 @@ def is_guess_in_word(guess, secret_word):
     #TODO: check if the letter guess is in the secret word
 
     pass
+    if guess in secret_word:
+        return True
+    else:
+        return False
 
 def get_blank_word(secret_word):
     guess = ""
@@ -69,14 +80,25 @@ def spaceman(secret_word):
     Args:
       secret_word (string): the secret word to guess.
     '''
-
     #get_blank_word(secret_word)
 
     #TODO: show the player information about the game according to the project spec
-    print("Your gessing is {}".format(get_blank_word(secret_word)))
+    print(secret_word)
+    print("Your guessing is {}".format(get_blank_word(secret_word)))
 
     #TODO: Ask the player to guess one letter per round and check that it is only one letter
-
+    #give me a letters
+    correct_letters = []
+    while(is_word_guessed(secret_word, correct_letters) is False):
+        user_guess = raw_input("give input")
+        #print(user_guess)
+        #determine is letter rights
+        is_correct = is_guess_in_word(user_guess, secret_word)
+        #fill in correct letters from guessed
+        #repeat
+        if(is_correct):
+            print(get_guessed_word(secret_word, user_guess))
+            correct_letters.append((user_guess))
     #TODO: Check if the guessed letter is in the secret or not and give the player feedback
 
     #TODO: show the guessed word so far

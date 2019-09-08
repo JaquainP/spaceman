@@ -1,4 +1,4 @@
-import random
+import random, collections
 
 WORDS_FILE = "random_words.txt"
 
@@ -27,8 +27,7 @@ def is_word_guessed(secret_word, letters_guessed):
         bool: True only if all the letters of secret_word are in letters_guessed, False otherwise
     '''
     # TODO: Loop through the letters in the secret_word and check if a letter is not in lettersGuessed
-    pass
-    return secret_word == letters_guessed
+    return collections.Counter(list(secret_word)) == collections.Counter(letters_guessed)
 
 def get_guessed_word(secret_word, letters_guessed):
     '''
@@ -42,12 +41,14 @@ def get_guessed_word(secret_word, letters_guessed):
 
     #TODO: Loop through the letters in secret word and build a string that shows the letters that have been guessed correctly so far that are saved in letters_guessed and underscores for the letters that have not been guessed yet
     guess = ""
+    count = 0
     for char in secret_word:
         if char == letters_guessed:
             guess += letters_guessed
+            count += 1
         else:
             guess += " _ "
-    return guess
+    return (guess, count)
     pass
 
 
@@ -89,7 +90,8 @@ def spaceman(secret_word):
     #TODO: Ask the player to guess one letter per round and check that it is only one letter
     #give me a letters
     correct_letters = []
-    while(is_word_guessed(secret_word, correct_letters) is False):
+    incorrect_guess = 0
+    while(is_word_guessed(secret_word, correct_letters) is False and incorrect_guess < 5):
         user_guess = raw_input("give input")
         #print(user_guess)
         #determine is letter rights
@@ -97,8 +99,18 @@ def spaceman(secret_word):
         #fill in correct letters from guessed
         #repeat
         if(is_correct):
-            print(get_guessed_word(secret_word, user_guess))
-            correct_letters.append((user_guess))
+            guessed_word = get_guessed_word(secret_word, user_guess)[0]
+            amount_of_words = get_guessed_word(secret_word, user_guess)[1]
+            print(guessed_word)
+            for i in range(amount_of_words):
+                correct_letters.append((user_guess))
+        else:
+            incorrect_guess+=1
+
+    if(is_word_guessed(secret_word, correct_letters)):
+        print("Congrats, you've guessed the word correctly")
+    else:
+        print("Womp womp womp, you've run out of guesses. Better luck next time")
     #TODO: Check if the guessed letter is in the secret or not and give the player feedback
 
     #TODO: show the guessed word so far
